@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEXIA™ by CEINCA — Tu sistema de IA para Derecho Mercantil</title>
+<meta name="description" content="GEM Mercantil (trámites en línea) + GEM LOPNNA, entrenados por abogados, con Biblia de 120+ formatos reales de obsequio. Sin programar. Preventa $97 hasta el 15 de agosto.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lexia-ceinca.vercel.app">
+<meta property="og:title" content="LEXIA™ by CEINCA — 2 agentes de IA para Mercantil y LOPNNA">
+<meta property="og:description" content="2 asistentes de IA entrenados por abogados, con +120 formatos reales de obsequio. Preventa $97 hasta el 15 de agosto.">
+<meta property="og:image" content="https://lexia-ceinca.vercel.app/assets/lexia-emblema-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LEXIA™ by CEINCA — 2 agentes de IA para Mercantil y LOPNNA">
+<meta name="twitter:description" content="2 asistentes de IA entrenados por abogados, con +120 formatos reales de obsequio. Preventa $97 hasta el 15 de agosto.">
+<meta name="twitter:image" content="https://lexia-ceinca.vercel.app/assets/lexia-emblema-og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1D3A;
+    --navy-mid: #132848;
+    --navy-light: #1A3560;
+    --gold: #C8A951;
+    --gold-dark: #A8892E;
+    --gold-light: #DDB96A;
+    --white: #FFFFFF;
+    --cream: #FAF6ED;
+    --carbon: #1C1C1E;
+    --gray-soft: #94A3B8;
+    --font-main: 'Montserrat', -apple-system, sans-serif;
+    --shadow-md: 0 4px 24px rgba(0,0,0,0.18);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.28);
+    --shadow-gold: 0 4px 20px rgba(200,169,81,0.30);
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-main);
+    background: var(--cream);
+    color: var(--carbon);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, video { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 96px 0; }
+  @media (max-width: 768px) { section { padding: 64px 0; } }
+
+  h1, h2, h3 { font-weight: 800; letter-spacing: -0.03em; text-wrap: balance; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--gold); }
+
+  /* ===== BOTONES ===== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px 32px; border-radius: 999px; font-weight: 700; font-size: 16px;
+    border: none; cursor: pointer; transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-gold { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); color: var(--navy); box-shadow: var(--shadow-gold); }
+  .btn-gold:hover { box-shadow: 0 6px 28px rgba(200,169,81,0.45); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.4); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-whatsapp { background: var(--navy); color: var(--white); }
+  .btn-whatsapp:hover { background: var(--navy-mid); }
+  .btn-block { width: 100%; }
+
+  /* ===== HEADER ===== */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,29,58,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1200px; margin: 0 auto; }
+  .logo-group { display: flex; align-items: center; gap: 10px; }
+  .logo-group img { width: 36px; height: 36px; border-radius: 50%; }
+  .logo-text { color: var(--white); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+  .logo-text span { color: var(--gold); }
+  .header-cta { display: flex; align-items: center; gap: 20px; }
+  .header-price { color: var(--white); font-size: 14px; font-weight: 600; display: none; }
+  @media (min-width: 640px) { .header-price { display: inline; } }
+
+  /* ===== HERO — técnica responsive (2 imágenes + overlay + texto invertido) ===== */
+  .hero {
+    position: relative;
+    background-image: var(--hero-mobile-img);
+    background-size: cover;
+    background-position: center 20%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(11,29,58,0.72);
+    transition: opacity 400ms ease;
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto; padding: 140px 24px 64px;
+    display: grid; grid-template-columns: 1fr; gap: 48px; width: 100%;
+  }
+  .hero-copy h1 {
+    color: var(--white);
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 1.05;
+    margin: 20px 0 24px;
+  }
+  .hero-copy h1 em { font-style: normal; color: var(--gold); }
+  .hero-copy p.lead {
+    color: rgba(255,255,255,0.88); font-size: 18px; max-width: 520px; margin-bottom: 28px;
+  }
+  .hero-copy p.lead strong { color: var(--white); }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(200,169,81,0.14); border: 1px solid rgba(200,169,81,0.4);
+    color: var(--gold-light); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: pulse-dot 1.8s infinite; }
+  @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+
+  /* Tarjeta de oferta */
+  .offer-card {
+    background: var(--white); border-radius: 20px; padding: 28px;
+    box-shadow: var(--shadow-lg); border-top: 3px solid var(--gold);
+  }
+  .offer-card .badge-early {
+    display: inline-block; background: var(--navy); color: var(--gold-light);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .offer-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .offer-price { font-size: 44px; font-weight: 900; color: var(--navy); letter-spacing: -0.02em; }
+  .offer-price-old { font-size: 18px; color: var(--gray-soft); text-decoration: line-through; }
+  .offer-deadline { font-size: 13px; color: var(--gold-dark); font-weight: 700; margin-bottom: 20px; }
+  .offer-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .offer-list li { display: flex; gap: 10px; font-size: 14.5px; color: var(--carbon); align-items: flex-start; }
+  .offer-list li::before { content: '✓'; color: var(--gold-dark); font-weight: 900; flex-shrink: 0; }
+
+  @media (min-width: 1024px) {
+    .hero { background-image: var(--hero-desktop-img); background-position: center 12%; min-height: 100vh; }
+    .hero::before { background: linear-gradient(90deg, rgba(11,29,58,0.88) 0%, rgba(11,29,58,0.6) 48%, rgba(11,29,58,0.15) 100%); }
+    .hero-inner {
+      display: flex; flex-direction: row; align-items: flex-end; justify-content: space-between;
+      gap: 32px; padding-top: 96px; padding-bottom: 48px; min-height: calc(100vh - 144px);
+    }
+    .hero-copy { max-width: 600px; flex-shrink: 1; }
+    .offer-card {
+      width: 260px; max-width: 260px; padding: 20px; flex-shrink: 0; margin-right: 28px;
+    }
+    .offer-price { font-size: 32px; }
+    .offer-list li { font-size: 12.5px; }
+  }
+  @media (min-width: 1280px) {
+    .hero-copy { max-width: 680px; }
+    .offer-card { width: 280px; max-width: 280px; }
+  }
+
+  /* ===== STATS ===== */
+  .stats-section { background: var(--navy); color: var(--white); }
+  .stats-head { max-width: 680px; margin: 0 auto 56px; text-align: center; }
+  .stats-head h2 { color: var(--white); font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin-top: 14px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+  .stat-card { text-align: center; padding: 8px; }
+  .stat-number { font-size: 56px; font-weight: 900; color: var(--gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 16px; }
+  .stat-breakdown { font-size: 13px; font-weight: 700; color: var(--gold-light); margin: -8px 0 12px; letter-spacing: 0.01em; }
+  .stat-card p { color: rgba(255,255,255,0.75); font-size: 15px; max-width: 280px; margin: 0 auto; }
+  .stat-card p strong { color: var(--white); }
+
+  /* ===== BENEFICIOS ===== */
+  .benefits-section { background: linear-gradient(155deg, var(--navy-mid) 0%, var(--navy) 100%); color: var(--white); }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-top: 48px; }
+  .benefit-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 28px; transition: transform 250ms var(--ease-out), border-color 250ms;
+  }
+  .benefit-card:hover { transform: translateY(-4px); border-color: rgba(200,169,81,0.4); }
+  .benefit-num { color: var(--gold); font-size: 13px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 14px; display: block; }
+  .benefit-card h3 { font-size: 19px; margin-bottom: 10px; color: var(--white); }
+  .benefit-card p { font-size: 14.5px; color: rgba(255,255,255,0.7); }
+
+  /* ===== RESPALDO / CERTIFICACIÓN ===== */
+  .trust-section { background: var(--cream); }
+  .trust-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
+  @media (min-width: 900px) { .trust-grid { grid-template-columns: 1fr 1fr; } }
+  .trust-photos { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+  .trust-photos img { border-radius: 16px; box-shadow: var(--shadow-md); object-fit: cover; width: 100%; height: 100%; }
+  .trust-photos .ph2 { align-self: end; }
+  .trust-copy .eyebrow { color: var(--gold-dark); }
+  .trust-copy .eyebrow::before { background: var(--gold-dark); }
+  .trust-copy h2 { color: var(--navy); font-size: clamp(1.7rem, 3.2vw, 2.3rem); margin: 14px 0 20px; }
+  .trust-copy p { color: #445; font-size: 16px; margin-bottom: 16px; }
+  .trust-stats-row { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+  .trust-stat b { display: block; font-size: 30px; font-weight: 900; color: var(--navy); }
+  .trust-stat span { font-size: 13px; color: #667; }
+
+  .timeline { margin-top: 56px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+  .timeline-item { border-left: 3px solid var(--gold); padding: 4px 0 4px 18px; }
+  .timeline-tag { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 6px; }
+  .timeline-item b { display: block; color: var(--navy); font-size: 16px; margin-bottom: 6px; }
+  .timeline-item p { font-size: 13.5px; color: #556; }
+
+  /* ===== TEMARIO / ACORDEÓN ===== */
+  .curriculum-section { background: var(--white); }
+  .section-head { text-align: center; max-width: 680px; margin: 0 auto 20px; }
+  .section-head h2 { color: var(--navy); font-size: clamp(1.7rem, 3.2vw, 2.3rem); margin-top: 14px; }
+  .section-head p { color: #556; margin-top: 14px; font-size: 16px; }
+  .accordion { max-width: 840px; margin: 48px auto 0; border: 1px solid #E5DFD0; border-radius: 16px; overflow: hidden; }
+  .acc-item { border-bottom: 1px solid #E5DFD0; }
+  .acc-item:last-child { border-bottom: none; }
+  .acc-trigger {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 20px 24px; background: var(--cream); border: none; cursor: pointer; text-align: left;
+    font-family: var(--font-main); font-weight: 700; font-size: 15.5px; color: var(--navy);
+    transition: background 200ms;
+  }
+  .acc-trigger:hover { background: #F1EBDC; }
+  .acc-trigger .num { color: var(--gold-dark); font-weight: 800; margin-right: 10px; }
+  .acc-trigger .icon { transition: transform 300ms var(--ease-in-out); flex-shrink: 0; color: var(--gold-dark); }
+  .acc-item.open .acc-trigger .icon { transform: rotate(45deg); }
+  .acc-panel { max-height: 0; overflow: hidden; transition: max-height 400ms var(--ease-in-out); background: var(--white); }
+  .acc-item.open .acc-panel { max-height: 600px; }
+  .acc-panel-inner { padding: 22px 24px 26px; }
+  .acc-panel-inner ul { display: flex; flex-direction: column; gap: 10px; }
+  .acc-panel-inner li { font-size: 14.5px; color: #445; padding-left: 20px; position: relative; }
+  .acc-panel-inner li::before { content: '▸'; position: absolute; left: 0; color: var(--gold-dark); }
+  .acc-panel-inner li b { color: var(--navy); }
+
+  /* ===== TESTIMONIOS ===== */
+  .testimonials-section { background: linear-gradient(155deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); }
+  .pull-quote {
+    max-width: 760px; margin: 0 auto 64px; text-align: center;
+  }
+  .pull-quote .mark { font-size: 64px; color: var(--gold); line-height: 0.5; display: block; margin-bottom: 12px; font-family: Georgia, serif; }
+  .pull-quote-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center center; margin: 0 auto 24px; border: 3px solid var(--gold); display: block; }
+  .pull-quote p { font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 600; color: var(--white); letter-spacing: -0.01em; text-wrap: balance; }
+  .pull-quote cite { display: block; margin-top: 20px; font-style: normal; color: var(--gold-light); font-weight: 700; font-size: 15px; }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; max-width: 900px; margin: 0 auto; }
+  .testi-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; overflow: hidden; }
+  .testi-video-wrap { position: relative; aspect-ratio: 9/16; background: #000; }
+  .testi-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+  .testi-play {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(11,29,58,0.25); cursor: pointer; transition: opacity 250ms;
+  }
+  .testi-play .play-btn {
+    width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.9);
+    display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md);
+    transition: transform 200ms var(--ease-out);
+  }
+  .testi-play:hover .play-btn { transform: scale(1.08); }
+  .testi-play svg { margin-left: 4px; }
+  .testi-play.hidden { opacity: 0; pointer-events: none; }
+  .testi-meta { padding: 16px 18px; }
+  .testi-meta h4 { font-size: 15px; color: var(--white); margin-bottom: 3px; }
+  .testi-meta span { font-size: 12.5px; color: var(--gray-soft); }
+
+  /* ===== POR QUÉ CEINCA ===== */
+  .why-section { background: var(--cream); }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-top: 48px; }
+  .why-card { background: var(--white); border-radius: 16px; padding: 30px 26px; box-shadow: var(--shadow-md); }
+  .why-icon {
+    width: 48px; height: 48px; border-radius: 12px; background: var(--navy);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: var(--gold);
+  }
+  .why-card h3 { color: var(--navy); font-size: 17px; margin-bottom: 10px; }
+  .why-card p { font-size: 14.5px; color: #556; }
+
+  /* ===== FAQ ===== */
+  .faq-section { background: var(--white); }
+
+  /* ===== OFERTA FINAL ===== */
+  .final-offer { background: var(--navy); color: var(--white); text-align: center; position: relative; overflow: hidden; }
+  .final-offer::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(200,169,81,0.15), transparent 50%);
+  }
+  .final-offer-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .final-offer h2 { color: var(--white); font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 16px 0 20px; }
+  .final-offer p.lead { color: rgba(255,255,255,0.8); font-size: 17px; margin-bottom: 36px; }
+  .final-price-box {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(200,169,81,0.3); border-radius: 20px;
+    padding: 36px; margin-bottom: 32px;
+  }
+  .final-price-row { display: flex; align-items: baseline; justify-content: center; gap: 14px; margin-bottom: 8px; }
+  .final-price { font-size: 56px; font-weight: 900; color: var(--gold); }
+  .final-price-old { font-size: 22px; color: var(--gray-soft); text-decoration: line-through; }
+  .final-deadline { color: var(--gold-light); font-weight: 700; font-size: 14px; margin-bottom: 24px; }
+  .final-ctas { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 8px; text-align: left; }
+  .price-pack { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 28px; }
+  .price-pack.featured { border: 1.5px solid var(--gold); background: rgba(200,169,81,0.08); }
+  .price-pack h3 { color: var(--white); font-size: 21px; margin: 14px 0 10px; }
+  .price-pack .pack-desc { color: rgba(255,255,255,0.65); font-size: 13.5px; margin-bottom: 18px; min-height: 60px; }
+  .pack-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .pack-price { font-size: 36px; font-weight: 900; color: var(--gold); }
+  .pack-old { font-size: 16px; color: var(--gray-soft); text-decoration: line-through; }
+  .pack-note { font-size: 12px; color: rgba(255,255,255,0.55); }
+  .pack-alt { font-size: 13px; color: rgba(255,255,255,0.75); margin: 10px 0 20px; padding: 10px 12px; background: rgba(255,255,255,0.04); border-radius: 8px; }
+  .pack-alt b { color: var(--gold-light); }
+
+  /* ===== FOOTER ===== */
+  footer { background: #081527; color: rgba(255,255,255,0.6); padding: 56px 0 28px; }
+  .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; margin-bottom: 40px; }
+  .footer-brand { max-width: 320px; }
+  .footer-brand .logo-text { font-size: 19px; }
+  .footer-brand p { font-size: 13.5px; margin-top: 12px; color: rgba(255,255,255,0.45); }
+  .footer-links h4 { color: var(--white); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .footer-links li { margin-bottom: 10px; font-size: 14px; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; font-size: 12.5px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  /* ===== MOTION DESIGN SYSTEM ===== */
+
+  /* Hero entrance: stagger de badge -> h1 -> lead -> ctas -> offer-card */
+  .hero-badge, .hero-copy h1, .hero-copy p.lead, .hero-ctas, .offer-card {
+    opacity: 0; transform: translateY(20px);
+    animation: heroEnter 700ms var(--ease-out) forwards;
+  }
+  .hero-badge { animation-delay: 80ms; }
+  .hero-copy h1 { animation-delay: 200ms; }
+  .hero-copy p.lead { animation-delay: 340ms; }
+  .hero-ctas { animation-delay: 460ms; }
+  .offer-card { animation-delay: 580ms; }
+  @keyframes heroEnter { to { opacity: 1; transform: translateY(0); } }
+
+  /* Botones: hover con sensación física + focus accesible */
+  .btn { transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), background 220ms var(--ease-out); }
+  .btn:hover { transform: translateY(-2px) scale(1.03); }
+  .btn:active { transform: translateY(0) scale(0.97); transition-duration: 100ms; }
+  .btn:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+  .btn-gold:hover { box-shadow: 0 10px 32px rgba(200,169,81,0.4); }
+
+  /* CTAs de pago / WhatsApp: sin movimiento — estáticos y predecibles a propósito.
+     El feedback de hover se limita a sombra/color (ya definidos arriba), nunca a transform. */
+  .btn-cta:hover, .btn-cta:active { transform: none; }
+
+  /* Tarjetas: elevación + sombra suave (sin rotación) */
+  .benefit-card, .why-card, .testi-card, .price-pack, .stat-card, .offer-card {
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+  }
+  .benefit-card:hover, .why-card:hover, .price-pack:hover { transform: translateY(-6px); }
+  .benefit-card:hover { box-shadow: 0 16px 36px rgba(0,0,0,0.22); }
+  .why-card:hover { box-shadow: 0 16px 40px rgba(11,29,58,0.16); }
+  .testi-card:hover { transform: translateY(-6px); border-color: rgba(200,169,81,0.5); box-shadow: 0 16px 36px rgba(0,0,0,0.32); }
+  .offer-card:hover { transform: translateY(-3px); }
+
+  /* Iconos interactivos */
+  .why-icon { transition: transform 280ms var(--ease-out); }
+  .why-card:hover .why-icon { transform: translateY(-3px) rotate(-4deg); }
+  .acc-trigger .icon { transition: transform 300ms var(--ease-in-out), opacity 200ms; }
+  .acc-trigger:hover .icon { opacity: 0.75; }
+
+  /* Scroll reveal: opacity + translateY, una sola vez */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.in-view > * { animation: none; }
+  .reveal-stagger > * { opacity: 0; transform: translateY(24px); transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); }
+  .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0ms; }
+  .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 90ms; }
+  .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 180ms; }
+  .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 270ms; }
+  .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0); }
+
+  /* Navbar: transición al hacer scroll */
+  header { transition: background 350ms var(--ease-out), backdrop-filter 350ms var(--ease-out), padding 250ms var(--ease-out), box-shadow 350ms var(--ease-out); }
+  header.scrolled { background: rgba(8,21,39,0.86); backdrop-filter: blur(16px); box-shadow: 0 4px 24px rgba(0,0,0,0.18); }
+  header.scrolled .header-inner { padding-top: 10px; padding-bottom: 10px; }
+
+  /* Imágenes: fade-in con leve profundidad */
+  img.fade-img { opacity: 0; transform: translateY(14px) scale(1.015); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+  img.fade-img.in-view { opacity: 1; transform: translateY(0) scale(1); }
+  .trust-photos .ph2.fade-img { transition-delay: 120ms; }
+
+  /* Fondos con gradiente: movimiento casi imperceptible */
+  .benefits-section, .testimonials-section {
+    background-size: 140% 140%;
+    animation: driftBg 24s ease-in-out infinite alternate;
+  }
+  @keyframes driftBg { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+
+  /* Pulse-dot ya existente se mantiene; performance: solo transform/opacity en toda la hoja */
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .hero-badge, .hero-copy h1, .hero-copy p.lead, .hero-ctas, .offer-card,
+    .reveal, .reveal-stagger > *, img.fade-img {
+      opacity: 1 !important; transform: none !important;
+    }
+    .benefits-section, .testimonials-section { animation: none !important; }
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 640px) {
+    .hero-ctas .btn { width: 100%; }
+    .final-ctas .btn { width: 100%; }
+    .footer-bottom { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-group">
+      <img src="assets/ceinca-logo-sm.png" alt="CEINCA">
+      <span class="logo-text">LEXIA<span>™</span></span>
+    </div>
+    <div class="header-cta">
+      <span class="header-price">Preventa <b style="color:#DDB96A">$97</b> · hasta el 15 ago</span>
+      <a href="https://wa.me/584121020180?text=MAJARETE" class="btn btn-gold btn-cta" style="padding:11px 22px; font-size:14px;">Quiero LEXIA →</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" style="--hero-mobile-img:url('assets/hero-mobile.webp'); --hero-desktop-img:url('assets/hero-desktop.webp');">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-badge"><span class="dot"></span> Lanzamiento Preventa — hasta el 15 de agosto</div>
+      <h1>2 agentes de IA, entrenados por <em>abogados</em>, para dos ramas que dominamos a fondo</h1>
+      <p class="lead">LEXIA es <strong>2 GEMs entrenados por abogados</strong> — Mercantil (trámites en línea: actas, asambleas, firmas personales) y LOPNNA (escritos y procedimientos de niños, niñas y adolescentes) — con <strong>60 formatos Mercantil + 60 formatos LOPNNA</strong> incluidos de obsequio. <strong>Sin programar.</strong></p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/584121020180?text=MAJARETE" class="btn btn-gold btn-cta">Escribe MAJARETE por WhatsApp →</a>
+        <a href="#temario" class="btn btn-outline">Ver qué incluye</a>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <span class="badge-early">Precio Preventa · LEXIA Completo</span>
+      <div class="offer-price-row">
+        <span class="offer-price">$97</span>
+        <span class="offer-price-old">$397</span>
+      </div>
+      <div class="offer-deadline">⏳ $97 hasta el 15 de agosto · $147 del 16 al 30 de agosto · $397 desde el 1 de septiembre</div>
+      <ul class="offer-list">
+        <li>GEM Mercantil CEINCA™ + Biblia de 60 formatos de obsequio</li>
+        <li>GEM LOPNNA CEINCA™ + Biblia de 60 formatos de obsequio</li>
+        <li>Acceso por Google Drive a tu correo, tras confirmar el pago</li>
+        <li>Actualizaciones incluidas de por vida</li>
+        <li>Soporte directo por WhatsApp</li>
+      </ul>
+      <a href="https://wa.me/584121020180?text=MAJARETE" class="btn btn-gold btn-block btn-cta">Quiero mi acceso →</a>
+      <p style="font-size:12px; color:#889; text-align:center; margin-top:10px;">¿Solo necesitas uno de los dos? Existen <a href="#precios" style="color:var(--gold-dark); font-weight:700;">packs individuales desde $60</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-head">
+      <span class="eyebrow">Por qué ahora</span>
+      <h2>Los trámites mercantiles en línea ya cambiaron — la pregunta es si tú vas primero o después</h2>
+    </div>
+    <div class="stats-grid reveal-stagger">
+      <div class="stat-card">
+        <div class="stat-number">+180</div>
+        <p>Empresas registradas por CEINCA en línea desde el piloto SAREN de <strong>2021</strong> — pioneros antes de que fuera tendencia.</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2</div>
+        <p>Agentes GEM independientes: uno para trámites mercantiles en línea, otro para documentos LOPNNA — cada uno especializado en su materia.</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">+120</div>
+        <div class="stat-breakdown">60 formatos Mercantil + 60 formatos LOPNNA</div>
+        <p>De obsequio con cada GEM — formatos reales de práctica, no plantillas genéricas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFICIOS ============ -->
+<section class="benefits-section">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:left; margin-left:0;">
+      <span class="eyebrow">Beneficios</span>
+      <h2 style="color:#fff;">Lo que cambia en tu trabajo diario con LEXIA</h2>
+    </div>
+    <div class="benefits-grid reveal-stagger">
+      <div class="benefit-card">
+        <span class="benefit-num">01</span>
+        <h3>Genera documentos mercantiles listos para el Registro</h3>
+        <p>Actas constitutivas de C.A., firmas personales, actas de asamblea (aumento de capital, cambio de junta, reconversión monetaria, cesión de acciones) armadas con cláusulas ya validadas.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-num">02</span>
+        <h3>Redacta escritos LOPNNA con criterio</h3>
+        <p>Manutención, custodia, régimen de convivencia, divorcios con hijos, poderes internacionales — identificando el escrito correcto y activando modo urgente en casos de riesgo.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-num">03</span>
+        <h3>120+ formatos reales, cero hoja en blanco</h3>
+        <p>60 formatos mercantiles + 60 formatos LOPNNA, destilados de la práctica real — no plantillas genéricas de internet.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-num">04</span>
+        <h3>Entrenados por un abogado, no por marketing de IA</h3>
+        <p>Cada GEM viene de un archivo de conocimiento construido sobre casos reales, criterios registrales y jurisprudencia vinculante — no de un manual traducido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESPALDO / TRAYECTORIA ============ -->
+<section class="trust-section">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-photos reveal">
+        <img src="assets/certificacion-grupo.webp" alt="Entrega de certificados CEINCA, Colegio de Abogados de Barinas" class="ph1 fade-img">
+        <img src="assets/diploma-1.webp" alt="Certificado CEINCA" class="ph2 fade-img">
+      </div>
+      <div class="trust-copy">
+        <span class="eyebrow">Respaldo real, no de papel</span>
+        <h2>4 jornadas presenciales + 30 formaciones online, desde 2021</h2>
+        <p>Antes de ser software, CEINCA llevó estos formatos y esta experiencia a 4 jornadas presenciales entre agosto de 2025 y marzo de 2026 — con abogados, contadores y emprendedores reales aprendiendo trámites mercantiles aplicados.</p>
+        <p>Desde que entró en vigencia el piloto SAREN en 2021, además hemos dictado <strong>más de 30 formaciones en línea vía Telegram a nivel nacional</strong>, formando a más de 500 personas en toda Venezuela.</p>
+        <p>LEXIA son esos mismos formatos y esa misma experiencia, ahora empaquetados en dos GEMs que puedes usar todos los días.</p>
+        <div class="trust-stats-row">
+          <div class="trust-stat"><b>4</b><span>Jornadas presenciales</span></div>
+          <div class="trust-stat"><b>30+</b><span>Formaciones online (Telegram)</span></div>
+          <div class="trust-stat"><b>500+</b><span>Profesionales formados</span></div>
+          <div class="trust-stat"><b>2021</b><span>Piloto SAREN online</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline reveal-stagger">
+      <div class="timeline-item">
+        <span class="timeline-tag">Desde 2021 · Online</span>
+        <b>+30 formaciones vía Telegram</b>
+        <p>A nivel nacional, formando a más de 500 personas desde el piloto SAREN.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-tag">I Jornada · Bootcamp Mercantil + IA</span>
+        <b>Agosto 2025 — Barinas</b>
+        <p>Aval y coordinación junto al Colegio de Abogados de Barinas.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-tag">II Jornada · Bootcamp Mercantil + IA</span>
+        <b>Octubre 2025 — San Cristóbal, Táchira</b>
+        <p>Aval académico ULA Táchira, en alianza con FONPYME (Fondo de la Pequeña y Mediana Empresa).</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-tag">III Jornada · Bootcamp Mercantil + IA</span>
+        <b>Noviembre 2025 — Caracas</b>
+        <p>Aval académico ULA Táchira, en alianza con FONPYME.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-tag">Jornada de Actualización Digital ULA</span>
+        <b>Marzo 2026 — ULA Táchira</b>
+        <p>Edición ampliada: Mercantil, Meta Ads, Inteligencia Artificial y derecho notarial en línea.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMARIO / QUÉ INCLUYE ============ -->
+<section class="curriculum-section" id="temario">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Qué incluye</span>
+      <h2>2 agentes GEM, cada uno especializado en su materia</h2>
+      <p>No es un solo asistente genérico — son dos GEMs de Gemini entrenados por separado, cada uno con su propia Biblia de formatos reales.</p>
+    </div>
+
+    <div class="accordion" id="accordion">
+      <div class="acc-item open">
+        <button class="acc-trigger"><span><span class="num">01</span>GEM Mercantil CEINCA™ — qué genera</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><ul>
+          <li>Actas constitutivas de C.A. (ordinarias y PYME) y constitución/modificación de Firmas Personales</li>
+          <li>Actas de asamblea extraordinaria: aumento de capital, cambio de junta directiva, reconversión monetaria, cesión de acciones, apertura de sucursal</li>
+          <li>Otros trámites: sellado de libros, rectificación SAREN, poderes</li>
+          <li>Recolecta tus datos en orden (entidad → socios → capital → objeto → domicilio → registro) y arma el documento con cláusulas ya validadas</li>
+        </ul></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span><span class="num">02</span>GEM Mercantil — de dónde sale su entrenamiento</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><ul>
+          <li>Destilado de 60 formatos mercantiles reales usados en la práctica (actas constitutivas, asambleas, firmas personales)</li>
+          <li>Cláusulas reutilizables y catálogo de objetos sociales por sector</li>
+          <li>Reglas duras: capital social mínimo, prohibición de cláusulas Petro y PYME-COVID</li>
+          <li><b>Para quién:</b> abogados, contadores, administradores y emprendedores/gestores que redactan, analizan o auditan trámites de empresas</li>
+        </ul></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span><span class="num">03</span>GEM LOPNNA CEINCA™ — qué genera</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><ul>
+          <li>Escritos, demandas, solicitudes y diligencias: manutención, custodia, régimen de convivencia, divorcios con hijos, poderes internacionales</li>
+          <li>Amparo constitucional y restitución de custodia</li>
+          <li>Identifica el documento correcto por palabras clave y distingue procedimientos que suelen confundirse</li>
+          <li>Activa "modo urgente" en casos de riesgo, con el interés superior del NNA como principio rector</li>
+        </ul></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span><span class="num">04</span>GEM LOPNNA — de dónde sale su entrenamiento</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><ul>
+          <li>Destilado de 60 formatos procesales reales usados en la práctica</li>
+          <li>LOPNNA reformada, Constitución, y jurisprudencia vinculante del TSJ</li>
+          <li>Incluye notificaciones telemáticas (WhatsApp, videoconferencia) — el diferencial exclusivo de CEINCA</li>
+          <li><b>Para quién:</b> exclusivamente abogados — son los únicos habilitados para tramitar estos procedimientos</li>
+        </ul></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span><span class="num">05</span>Las 2 Biblias de formatos, de obsequio</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><ul>
+          <li>Biblia Mercantil: 60 formatos reales de trámites en línea</li>
+          <li>Biblia LOPNNA: 60 formatos procesales reales</li>
+          <li>Todo organizado y listo para adaptar a tu caso, sin empezar de cero</li>
+        </ul></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span><span class="num">06</span>Cómo se usan en el día a día</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><ul>
+          <li>Organiza cada GEM por cliente o expediente, manteniendo el contexto</li>
+          <li>Acceso por WhatsApp o el canal que prefieras, sin instalar nada</li>
+          <li>Buenas prácticas de privacidad y confidencialidad de datos sensibles</li>
+        </ul></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="pull-quote">
+      <img src="assets/grecia-poster.webp" alt="Grecia Vera" class="pull-quote-photo fade-img">
+      <span class="mark">"</span>
+      <p>Vale la pena la inversión.</p>
+      <cite>— Grecia Vera, Abogada · I Jornada de Actualización Digital, ULA Táchira (marzo 2026)</cite>
+    </div>
+
+    <div class="section-head reveal" style="margin-bottom:32px;">
+      <span class="eyebrow" style="color:#DDB96A;">Voces reales</span>
+      <h2 style="color:#fff;">Quienes ya han vivido el método CEINCA</h2>
+      <p style="color:rgba(255,255,255,0.7);">Testimonios de nuestros bootcamps presenciales — la misma metodología que hoy vive dentro de LEXIA.</p>
+    </div>
+
+    <div class="testi-grid reveal-stagger">
+      <div class="testi-card">
+        <div class="testi-video-wrap">
+          <video playsinline poster="assets/isabel-poster.webp" src="assets/web-03-testimonio-isabel-sanchez-RECORTADO.mp4"></video>
+          <div class="testi-play" onclick="playTesti(this)">
+            <div class="play-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="#0B1D3A"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+        </div>
+        <div class="testi-meta"><h4>Isabel Sánchez</h4><span>Abogada · I Jornada Barinas (ago. 2025)</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-video-wrap">
+          <video playsinline poster="assets/grecia-video-poster.webp" src="assets/web-02-testimonio-grecia-vera-ii-jornada-tachira.mp4"></video>
+          <div class="testi-play" onclick="playTesti(this)">
+            <div class="play-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="#0B1D3A"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+        </div>
+        <div class="testi-meta"><h4>Grecia Vera</h4><span>Abogada · I Jornada de Actualización Digital, ULA Táchira (mar. 2026)</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-video-wrap">
+          <video playsinline poster="assets/marisol-poster.webp" src="assets/web-01-testimonio-marisol-luna-tercera-jornada.mp4"></video>
+          <div class="testi-play" onclick="playTesti(this)">
+            <div class="play-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="#0B1D3A"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+        </div>
+        <div class="testi-meta"><h4>Marisol Luna</h4><span>II Jornada Mercantil, Táchira (oct. 2025)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POR QUÉ CEINCA ============ -->
+<section class="why-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" style="color:#A8892E;">Por qué CEINCA</span>
+      <h2>No es un curso de IA genérico traducido</h2>
+    </div>
+    <div class="why-grid reveal-stagger">
+      <div class="why-card">
+        <div class="why-icon">⚖</div>
+        <h3>20+ años de práctica mercantil</h3>
+        <p>Fundado por un abogado con dos décadas ejerciendo en Venezuela, no por un equipo de marketing de IA.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">★</div>
+        <h3>Pioneros en SAREN online</h3>
+        <p>Piloto de trámites mercantiles 100% en línea desde agosto de 2021 — antes de que fuera la norma.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✓</div>
+        <h3>Entrenados con formatos de práctica real</h3>
+        <p>Cada GEM se construyó sobre formatos y casos reales de nuestra propia práctica — 60 mercantiles y 60 LOPNNA — no con manuales genéricos.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">↻</div>
+        <h3>Actualizaciones incluidas</h3>
+        <p>Cuando SAREN o la LOPNNA actualizan un criterio, tus GEMs y formatos se actualizan con ellos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" style="color:#A8892E;">Preguntas frecuentes</span>
+      <h2>Antes de que preguntes</h2>
+    </div>
+    <div class="accordion" id="faq-accordion" style="margin-top:40px;">
+      <div class="acc-item">
+        <button class="acc-trigger"><span>¿Cómo accedo después de pagar?</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><p style="font-size:14.5px;color:#445;">Una vez confirmado tu pago por WhatsApp, te enviamos el acceso directo a tu correo vía Google Drive: los GEMs y las Biblias de formatos correspondientes a tu pack.</p></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span>¿Necesito saber programar?</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><p style="font-size:14.5px;color:#445;">No. LEXIA está diseñado para abogados, contadores, administradores y emprendedores sin conocimientos técnicos — todo funciona con lenguaje natural.</p></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span>¿Sirve si no soy abogado?</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><p style="font-size:14.5px;color:#445;">El <b>GEM Mercantil</b> sí — lo usan también contadores, administradores y emprendedores/gestores que redactan o tramitan documentos de empresas. El <b>GEM LOPNNA</b> es exclusivo para abogados, ya que son los únicos habilitados para tramitar esos procedimientos. El paquete completo LEXIA no está restringido solo a abogados: cualquiera puede adquirirlo, aunque en la práctica la mayoría de compradores del paquete completo son abogados o estudiantes de derecho.</p></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span>¿Qué pasa cuando termine la Preventa?</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><p style="font-size:14.5px;color:#445;">El precio de Preventa de $97 (LEXIA Completo) termina el 15 de agosto. Del 16 al 30 de agosto sube a $147. Desde el 1 de septiembre, el precio regular es $397. Quienes compren en Preventa o durante la ventana de $147 mantienen su precio de por vida, incluidas las actualizaciones.</p></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span>¿Puedo pagar en cuotas?</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><p style="font-size:14.5px;color:#445;">Sí. Pack Mercantil o Pack LOPNNA: 2 cuotas de $40 (inicial + a los 15 días). LEXIA Completo: 2 cuotas de $54 (inicial + a los 15 días). Si no completas el segundo pago dentro de los 15 días, el acceso se suspende y no aplica devolución del monto ya abonado.</p></div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span>¿Cómo pago?</span><span class="icon">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner"><p style="font-size:14.5px;color:#445;">Escríbenos "MAJARETE" por WhatsApp al +58 412-1020180 y te guiamos con las opciones de pago disponibles (precios referenciados a tasa BCV).</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFERTA FINAL ============ -->
+<section class="final-offer" id="precios">
+  <div class="container">
+    <div class="final-offer-inner" style="max-width:1020px;">
+      <span class="eyebrow" style="color:#DDB96A;">Elige tu paquete</span>
+      <h2>Empieza a trabajar con LEXIA hoy mismo</h2>
+      <p class="lead">Precios en USD, referenciados a tasa BCV. Acceso por Google Drive a tu correo, apenas confirmes el pago por WhatsApp.</p>
+
+      <div class="pricing-grid reveal-stagger">
+        <div class="price-pack">
+          <span class="badge-early" style="background:var(--navy-mid);">Solo GEM Mercantil</span>
+          <h3>Pack Mercantil</h3>
+          <p class="pack-desc">GEM Mercantil CEINCA™ + Biblia de 60 formatos mercantiles. Ideal si no eres abogado y solo tramitas o redactas documentos de empresas.</p>
+          <div class="pack-price-row"><span class="pack-price">$60</span><span class="pack-note">pago único · tasa BCV</span></div>
+          <div class="pack-alt">o 2 cuotas de <b>$40</b> (inicial + a los 15 días) — total $80</div>
+          <a href="https://wa.me/584121020180?text=MAJARETE%20MERCANTIL" class="btn btn-outline btn-block btn-cta" style="border-color:var(--gold); color:var(--gold);">Quiero el Pack Mercantil →</a>
+        </div>
+
+        <div class="price-pack">
+          <span class="badge-early" style="background:var(--navy-mid);">Solo GEM LOPNNA</span>
+          <h3>Pack LOPNNA</h3>
+          <p class="pack-desc">GEM LOPNNA CEINCA™ + Biblia de 60 formatos LOPNNA. Exclusivo para abogados que ejercen en materia de niños, niñas y adolescentes.</p>
+          <div class="pack-price-row"><span class="pack-price">$60</span><span class="pack-note">pago único · tasa BCV</span></div>
+          <div class="pack-alt">o 2 cuotas de <b>$40</b> (inicial + a los 15 días) — total $80</div>
+          <a href="https://wa.me/584121020180?text=MAJARETE%20LOPNNA" class="btn btn-outline btn-block btn-cta" style="border-color:var(--gold); color:var(--gold);">Quiero el Pack LOPNNA →</a>
+        </div>
+
+        <div class="price-pack featured">
+          <span class="badge-early">Paquete completo</span>
+          <h3>LEXIA Completo</h3>
+          <p class="pack-desc">2 GEMs — Mercantil y LOPNNA — con 60 formatos Mercantil + 60 formatos LOPNNA incluidos. Para abogados, estudiantes de derecho o cualquiera que quiera el paquete completo.</p>
+          <div class="pack-price-row"><span class="pack-price">$97</span><span class="pack-old">$397</span></div>
+          <div class="pack-note" style="margin-bottom:10px;">Preventa hasta el 15 de agosto · $147 del 16 al 30 de agosto · $397 desde el 1 de septiembre</div>
+          <div class="pack-alt">o 2 cuotas de <b>$54</b> (inicial + a los 15 días) — total $108</div>
+          <a href="https://wa.me/584121020180?text=MAJARETE" class="btn btn-gold btn-block btn-cta">Quiero LEXIA Completo →</a>
+        </div>
+      </div>
+
+      <p style="font-size:12.5px; color:rgba(255,255,255,0.55); max-width:640px; margin:28px auto 0;">
+        <b style="color:rgba(255,255,255,0.8);">Compras en cuotas:</b> si no completas el segundo pago dentro de los 15 días, el acceso se suspende y no aplica devolución del monto ya abonado.
+      </p>
+      <p style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:14px;">
+        También puedes comentar <b style="color:#DDB96A;">MAJARETE</b> en cualquier publicación de @ceinca.mercantil en Instagram.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-text">LEXIA<span style="color:#C8A951;">™</span> by CEINCA</span>
+        <p>Centro Integral de Estudios e Innovación — Mercantil + IA aplicada. Bejuma, Venezuela.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/584121020180?text=MAJARETE">WhatsApp: +58 412-1020180</a></li>
+          <li><a href="https://instagram.com/ceinca.mercantil" target="_blank">@ceinca.mercantil</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>CEINCA</h4>
+        <ul>
+          <li><a href="#temario">Qué incluye LEXIA</a></li>
+          <li><a href="#hero">Precio Preventa</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CEINCA — Centro Integral de Estudios e Innovación, C.A.</span>
+      <span>Mercantil + IA aplicada 🇻🇪</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Acordeón (temario + FAQ)
+  document.querySelectorAll('.acc-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const parent = item.parentElement;
+      const wasOpen = item.classList.contains('open');
+      parent.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Testimonios: reproducir video al click
+  function playTesti(el) {
+    const video = el.previousElementSibling;
+    video.play();
+    el.classList.add('hidden');
+    video.addEventListener('pause', () => el.classList.remove('hidden'));
+    video.addEventListener('ended', () => el.classList.remove('hidden'));
+  }
+
+  // Scroll reveal: se anima una sola vez al entrar en el viewport
+  const revealTargets = document.querySelectorAll('.reveal, .reveal-stagger, img.fade-img');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealTargets.forEach(el => revealObserver.observe(el));
+  } else {
+    revealTargets.forEach(el => el.classList.add('in-view'));
+  }
+
+  // Navbar: fondo/blur progresivo al hacer scroll
+  const header = document.querySelector('header');
+  const onScroll = () => {
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
